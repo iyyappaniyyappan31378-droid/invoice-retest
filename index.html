@@ -97,8 +97,6 @@
             margin-top: 8px; transition: all 0.3s; font-family: 'Poppins', sans-serif;
         }
         .btn-add:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-
-        /* Extra charges section */
         .extra-charges {
             margin-top: 15px; padding: 15px;
             background: linear-gradient(135deg, #FFF8E1, #FFF9C4);
@@ -112,9 +110,7 @@
             background: #1a1a1a; color: #FFD600; padding: 2px 8px;
             border-radius: 10px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .extra-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px;
-        }
+        .extra-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
         .extra-group { display: flex; flex-direction: column; }
         .extra-group label {
             font-size: 11px; font-weight: 600; color: #555;
@@ -125,10 +121,7 @@
             font-size: 13px; font-family: 'Poppins', sans-serif;
             transition: all 0.3s; background: #fff; text-align: right;
         }
-        .extra-group input:focus {
-            outline: none; border-color: #FFD600; box-shadow: 0 0 0 3px rgba(255,214,0,0.2);
-        }
-
+        .extra-group input:focus { outline: none; border-color: #FFD600; box-shadow: 0 0 0 3px rgba(255,214,0,0.2); }
         .summary-bar {
             display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             gap: 8px; margin-top: 15px; padding: 12px;
@@ -138,7 +131,7 @@
         .summary-item .s-label { font-size: 9px; color: #FFF176; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
         .summary-item .s-value { font-size: 15px; font-weight: 800; color: #FFD600; }
         .tax-row {
-            display: flex; align-items: center; gap: 12px;
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
             margin-top: 12px; padding: 10px 15px; background: #FFF9C4; border-radius: 8px;
         }
         .tax-row label { font-size: 13px; font-weight: 600; }
@@ -172,7 +165,6 @@
             font-size: 16px; cursor: pointer; transition: all 0.3s;
         }
         .btn-reset:hover { border-color: #FF5252; color: #FF5252; }
-
         .preview-panel { position: sticky; top: 80px; height: fit-content; }
         .preview-label {
             font-size: 14px; font-weight: 700; color: #1a1a1a;
@@ -190,7 +182,6 @@
         .preview-scroll::-webkit-scrollbar-track { background: #eee; border-radius: 4px; }
         .preview-scroll::-webkit-scrollbar-thumb { background: #FFD600; border-radius: 4px; }
         .preview-wrapper { transform: scale(0.62); transform-origin: top left; width: 161.3%; }
-
         .toast {
             position: fixed; top: 80px; right: 20px;
             padding: 12px 22px; background: #1a1a1a; color: #FFD600;
@@ -213,7 +204,6 @@
         }
         .loading-text { color: #FFD600; font-weight: 600; font-size: 14px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
         @media (max-width: 1200px) {
             .main-container { grid-template-columns: 1fr; }
             .preview-wrapper { transform: scale(0.5); width: 200%; }
@@ -250,7 +240,6 @@
 </div>
 
 <div class="main-container">
-    <!-- FORM -->
     <div class="form-panel">
         <h2>📝 Create Invoice</h2>
 
@@ -259,11 +248,11 @@
             <div class="form-row">
                 <div class="form-group">
                     <label>Invoice Number</label>
-                    <input type="text" id="invoiceNo" value="ELE/00011/25-26">
+                    <input type="text" id="invoiceNo" value="ELE/00012/25-26">
                 </div>
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="text" id="invoiceDate" value="19-3-2026">
+                    <input type="text" id="invoiceDate" value="25-3-2026">
                 </div>
             </div>
         </div>
@@ -273,12 +262,12 @@
             <div class="form-row">
                 <div class="form-group full">
                     <label>Client Name</label>
-                    <input type="text" id="clientName" placeholder="Client name">
+                    <input type="text" id="clientName" value="Ajay">
                 </div>
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <textarea id="clientAddress" placeholder="Client address"></textarea>
+                <textarea id="clientAddress">Sriperumbudur</textarea>
             </div>
         </div>
 
@@ -288,11 +277,11 @@
                 <thead>
                     <tr>
                         <th style="width:5%">#</th>
-                        <th style="width:35%">Item Name</th>
-                        <th style="width:18%">Price</th>
+                        <th style="width:33%">Item Name</th>
+                        <th style="width:17%">Price</th>
                         <th style="width:12%">Qty</th>
                         <th style="width:20%">Total</th>
-                        <th style="width:10%"></th>
+                        <th style="width:13%"></th>
                     </tr>
                 </thead>
             </table>
@@ -304,7 +293,6 @@
             <button class="btn-add" onclick="addItem()">+ Add Item</button>
         </div>
 
-        <!-- EXTRA CHARGES: Labour & Transportation -->
         <div class="extra-charges">
             <h4>💰 Additional Charges <span class="badge">Added to Total</span></h4>
             <div class="extra-row">
@@ -355,7 +343,6 @@
         </div>
     </div>
 
-    <!-- PREVIEW -->
     <div class="preview-panel">
         <div class="preview-label">
             Invoice Preview <span>Live</span>
@@ -374,44 +361,44 @@
     let itemCount = 0;
     const LOGO_URL = 'https://raw.githubusercontent.com/iyyappaniyyappan31378-droid/invoice-generater/main/Ellectra_w01wap%20(2).png';
 
+    // Exact items from Invoice ELE/00012/25-26 PDF
     const preloadedItems = [
-        { name: '3/4 Hose', price: 320, qty: 1 },
-        { name: '1/2 Hose', price: 340, qty: 1 },
-        { name: '250 X4.8 Tag', price: 70, qty: 1 },
-        { name: '1 star', price: 35, qty: 1 },
-        { name: '3/4 star', price: 30, qty: 1 },
-        { name: '2 star', price: 66, qty: 1 },
-        { name: '1 Pipe', price: 190, qty: 1 },
-        { name: 'Bend', price: 60, qty: 1 },
-        { name: 'Clamp', price: 60, qty: 1 },
-        { name: '6mm PVC', price: 36, qty: 1 },
-        { name: '4M Box', price: 140, qty: 1 },
-        { name: 'Modular MCB', price: 810, qty: 1 },
-        { name: 'Dumy', price: 100, qty: 1 },
-        { name: 'AC Box Modular', price: 940, qty: 1 },
-        { name: 'Indicator', price: 75, qty: 1 },
-        { name: '63A 4pole RCCB ANCL', price: 2665, qty: 1 },
-        { name: '3PHASE DB BOX', price: 1950, qty: 1 },
-        { name: '63A 4 POLE MCB', price: 1595, qty: 1 },
-        { name: '63A Rotary', price: 1185, qty: 1 },
-        { name: '10/6 20/6 16/6 MCB', price: 1800, qty: 1 },
-        { name: '1 coil 60 SQ m', price: 7660, qty: 1 },
-        { name: '4 coil 2.5 131/2 led/2', price: 13920, qty: 1 },
-        { name: '2 coil 4.0 g/1 y/1', price: 11060, qty: 1 },
-        { name: '12 coil 1.5 12/4 R/4 B1/4 Y/4', price: 25476, qty: 1 },
-        { name: '8 m PLATE', price: 714, qty: 1 },
-        { name: '4m plate', price: 474, qty: 1 },
-        { name: '12m plate', price: 1192, qty: 1 },
-        { name: '2m plate', price: 324, qty: 1 },
-        { name: 'Switch (vihan)', price: 900, qty: 1 },
-        { name: 'Socket 5pin', price: 1380, qty: 1 },
-        { name: '15A Switch', price: 1020, qty: 1 },
-        { name: '15A Socket', price: 1980, qty: 1 },
-        { name: 'Tape', price: 100, qty: 1 },
-        { name: '2m PVC BOX', price: 600, qty: 1 },
-        { name: '15A 3pm TOP', price: 0, qty: 1 },
-        { name: '250 TAG', price: 140, qty: 1 },
-        { name: 'PIPE', price: 190, qty: 1 },
+        { name: '63A 4 pole RCCB (anchor)', price: 2665, qty: 1 },
+        { name: '63A 4 pole MCB', price: 1595, qty: 1 },
+        { name: '3Phase 6 way DB Box', price: 1950, qty: 1 },
+        { name: '63A rotor', price: 395, qty: 3 },
+        { name: 'MCB', price: 100, qty: 18 },
+        { name: '6sq mm wire', price: 7660, qty: 1 },
+        { name: '2.5sq mm wire', price: 3480, qty: 4 },
+        { name: '4sq mm wire', price: 5530, qty: 2 },
+        { name: '1.5sq mm wire', price: 2123, qty: 12 },
+        { name: '8 model plate anchor', price: 119, qty: 6 },
+        { name: '4 model plate anchor', price: 79, qty: 6 },
+        { name: '12 model plate anchor', price: 149, qty: 8 },
+        { name: '2model plate anchor', price: 54, qty: 6 },
+        { name: 'switch', price: 18, qty: 50 },
+        { name: 'socket 5 pin', price: 46, qty: 30 },
+        { name: '16 A switch', price: 68, qty: 15 },
+        { name: '16A socket', price: 99, qty: 20 },
+        { name: 'Tape role', price: 10, qty: 10 },
+        { name: '2model box', price: 60, qty: 10 },
+        { name: '3pin top', price: 125, qty: 6 },
+        { name: '3/4 hose ele', price: 320, qty: 1 },
+        { name: '1/2 hose ele', price: 340, qty: 1 },
+        { name: '300x3.6 Tag', price: 70, qty: 3 },
+        { name: '1" star screw', price: 7, qty: 5 },
+        { name: '3/4 star screw', price: 6, qty: 5 },
+        { name: '2" x 8 star screw', price: 22, qty: 3 },
+        { name: '8mm PVC fisher', price: 40, qty: 1 },
+        { name: '1" Bend ele', price: 6, qty: 10 },
+        { name: 'Clamp', price: 2, qty: 30 },
+        { name: '6mm pvc fisher', price: 18, qty: 2 },
+        { name: '4m box', price: 70, qty: 2 },
+        { name: 'Modular MCB', price: 135, qty: 6 },
+        { name: 'Modular Dummy', price: 5, qty: 20 },
+        { name: 'Indicator', price: 25, qty: 3 },
+        { name: 'AC modular box', price: 470, qty: 2 },
+        { name: 'Pipe', price: 38, qty: 10 },
     ];
 
     function init() {
@@ -425,14 +412,16 @@
         const tbody = document.getElementById('itemsContainer');
         const tr = document.createElement('tr');
         tr.id = `item-${itemCount}`;
-        const t = (parseFloat(price) || 0) * (parseFloat(qty) || 1);
+        const p = parseFloat(price) || 0;
+        const q = parseFloat(qty) || 1;
+        const t = p * q;
         tr.innerHTML = `
             <td style="text-align:center;color:#999;font-size:11px;width:5%">${itemCount}</td>
-            <td style="width:35%"><input type="text" class="item-name" value="${name}" oninput="generatePreview()"></td>
-            <td style="width:18%"><input type="number" class="item-price" value="${price}" min="0" step="0.01" oninput="calcRow(this);calculateAll()"></td>
+            <td style="width:33%"><input type="text" class="item-name" value="${name}" oninput="generatePreview()"></td>
+            <td style="width:17%"><input type="number" class="item-price" value="${price}" min="0" step="0.01" oninput="calcRow(this);calculateAll()"></td>
             <td style="width:12%"><input type="number" class="item-qty" value="${qty}" min="1" oninput="calcRow(this);calculateAll()"></td>
             <td style="width:20%"><input type="text" class="item-total total-field" readonly value="${t.toFixed(2)}"></td>
-            <td style="width:10%;text-align:center"><button class="btn-remove-sm" onclick="removeItem('item-${itemCount}')">×</button></td>
+            <td style="width:13%;text-align:center"><button class="btn-remove-sm" onclick="removeItem('item-${itemCount}')">×</button></td>
         `;
         tbody.appendChild(tr);
     }
@@ -441,14 +430,13 @@
         const rows = document.querySelectorAll('#itemsContainer tr');
         if (rows.length <= 1) { showToast('⚠️ Need at least one item'); return; }
         document.getElementById(id).remove();
-        renumberItems();
-        calculateAll();
-        generatePreview();
+        renumberItems(); calculateAll(); generatePreview();
     }
 
     function renumberItems() {
-        const rows = document.querySelectorAll('#itemsContainer tr');
-        rows.forEach((row, i) => { row.querySelector('td').textContent = i + 1; });
+        document.querySelectorAll('#itemsContainer tr').forEach((row, i) => {
+            row.querySelector('td').textContent = i + 1;
+        });
     }
 
     function calcRow(input) {
@@ -459,15 +447,13 @@
     }
 
     function calculateAll() {
-        const rows = document.querySelectorAll('#itemsContainer tr');
         let subtotal = 0, count = 0;
-        rows.forEach(row => {
+        document.querySelectorAll('#itemsContainer tr').forEach(row => {
             const p = parseFloat(row.querySelector('.item-price').value) || 0;
             const q = parseFloat(row.querySelector('.item-qty').value) || 1;
             subtotal += p * q;
             if (row.querySelector('.item-name').value.trim()) count++;
         });
-
         const labour = parseFloat(document.getElementById('labourWage').value) || 0;
         const transport = parseFloat(document.getElementById('transportCost').value) || 0;
         const beforeTax = subtotal + labour + transport;
@@ -481,7 +467,6 @@
         document.getElementById('sumLabour').textContent = '₹' + fmtNum(labour);
         document.getElementById('sumTransport').textContent = '₹' + fmtNum(transport);
         document.getElementById('sumTotal').textContent = '₹' + fmtNum(total);
-
         generatePreview();
         return { subtotal, labour, transport, tax, total, count };
     }
@@ -491,9 +476,8 @@
     }
 
     function getItems() {
-        const rows = document.querySelectorAll('#itemsContainer tr');
         const items = [];
-        rows.forEach(row => {
+        document.querySelectorAll('#itemsContainer tr').forEach(row => {
             const name = row.querySelector('.item-name').value.trim();
             const price = parseFloat(row.querySelector('.item-price').value) || 0;
             const qty = parseFloat(row.querySelector('.item-qty').value) || 1;
@@ -506,8 +490,7 @@
         let lines = '';
         for (let i = 0; i < 35; i++) {
             const x1 = 180 - i * 3, y1 = i * 4, x2 = 40 + i * 2, y2 = 180 - i * 1.5;
-            const op = (0.08 + i * 0.02).toFixed(2);
-            lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#666" stroke-width="0.5" opacity="${op}"/>`;
+            lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#666" stroke-width="0.5" opacity="${(0.08 + i * 0.02).toFixed(2)}"/>`;
         }
         return `<svg width="180" height="180" viewBox="0 0 180 180">${lines}</svg>`;
     }
@@ -527,146 +510,114 @@
         const beforeTax = subtotal + labour + transport;
         const tax = beforeTax * (taxPct / 100);
         const total = beforeTax + tax;
-
         const addrHTML = clientAddress.split('\n').filter(l => l.trim()).join('<br>');
 
-        const ITEMS_FIRST_PAGE = 25;
+        // Pagination
+        const ITEMS_PAGE1 = 25;
         const ITEMS_PER_PAGE = 35;
         const pages = [];
         let remaining = [...items];
-        pages.push({ items: remaining.splice(0, ITEMS_FIRST_PAGE), isFirst: true });
+        pages.push({ items: remaining.splice(0, ITEMS_PAGE1), isFirst: true });
         while (remaining.length > 0) {
             pages.push({ items: remaining.splice(0, ITEMS_PER_PAGE), isFirst: false });
         }
 
         let html = '';
-
-        pages.forEach((page, pageIdx) => {
-            const isLastPage = pageIdx === pages.length - 1;
-
+        pages.forEach((page, pi) => {
+            const isLast = pi === pages.length - 1;
             html += `<div style="width:794px;min-height:1123px;background:#fff;padding:${page.isFirst ? '40px 50px' : '30px 50px'};position:relative;overflow:hidden;font-family:'Poppins',sans-serif;page-break-after:always;">`;
 
             if (page.isFirst) {
                 html += `
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-                        <img src="${LOGO_URL}" alt="Ellectra" style="width:130px;height:auto;" crossorigin="anonymous">
-                        <div style="font-size:44px;font-weight:900;color:#1a1a1a;letter-spacing:8px;text-transform:uppercase;">INVOICE</div>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                    <img src="${LOGO_URL}" alt="Ellectra" style="width:130px;height:auto;" crossorigin="anonymous">
+                    <div style="font-size:44px;font-weight:900;color:#1a1a1a;letter-spacing:8px;text-transform:uppercase;">INVOICE</div>
+                </div>
+                <div style="width:100%;height:3px;background:linear-gradient(90deg,#D32F2F,#FF5252,#D32F2F);margin:12px 0 20px 0;"></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:25px;">
+                    <div style="font-size:12.5px;color:#333;line-height:1.8;">
+                        <div>Invoice No :<strong>${invoiceNo}</strong></div>
+                        <div>Date : <strong>${invoiceDate}</strong></div>
+                        <div style="width:45px;height:3px;background:#1a1a1a;margin-top:5px;"></div>
                     </div>
-                    <div style="width:100%;height:3px;background:linear-gradient(90deg,#D32F2F,#FF5252,#D32F2F);margin:12px 0 20px 0;"></div>
-                    <div style="display:flex;justify-content:space-between;margin-bottom:25px;">
-                        <div style="font-size:12.5px;color:#333;line-height:1.8;">
-                            <div>Invoice No :<strong>${invoiceNo}</strong></div>
-                            <div>Date : <strong>${invoiceDate}</strong></div>
-                            <div style="width:45px;height:3px;background:#1a1a1a;margin-top:5px;"></div>
-                        </div>
-                        <div style="text-align:right;font-size:12.5px;color:#333;line-height:1.8;">
-                            <div style="font-weight:700;font-size:13px;color:#1a1a1a;">Invoice to :</div>
-                            <div style="font-weight:700;font-size:15px;color:#1a1a1a;margin:4px 0;">${clientName}</div>
-                            <div>${addrHTML}</div>
-                        </div>
-                    </div>`;
+                    <div style="text-align:right;font-size:12.5px;color:#333;line-height:1.8;">
+                        <div style="font-weight:700;font-size:13px;color:#1a1a1a;">Invoice to :</div>
+                        <div style="font-weight:700;font-size:15px;color:#1a1a1a;margin:4px 0;">${clientName}</div>
+                        <div>${addrHTML}</div>
+                    </div>
+                </div>`;
             } else {
                 html += `
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #eee;">
-                        <img src="${LOGO_URL}" alt="Ellectra" style="width:80px;height:auto;" crossorigin="anonymous">
-                        <div style="font-size:11px;color:#999;">Invoice ${invoiceNo} — Page ${pageIdx + 1}</div>
-                    </div>`;
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #eee;">
+                    <img src="${LOGO_URL}" alt="Ellectra" style="width:80px;height:auto;" crossorigin="anonymous">
+                    <div style="font-size:11px;color:#999;">Invoice ${invoiceNo} — Page ${pi + 1}</div>
+                </div>`;
             }
 
-            // Items table
-            html += `
-                <table style="width:100%;border-collapse:collapse;margin:10px 0;">
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">ITEMS</th>
-                            <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">PRICE</th>
-                            <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">QTY</th>
-                            <th style="text-align:right;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">TOTAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
+            // Table
+            html += `<table style="width:100%;border-collapse:collapse;margin:10px 0;">
+                <thead><tr>
+                    <th style="text-align:left;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">ITEMS</th>
+                    <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">PRICE</th>
+                    <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">QTY</th>
+                    <th style="text-align:right;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">TOTAL</th>
+                </tr></thead><tbody>`;
 
             page.items.forEach((item, idx) => {
                 const bg = idx % 2 === 1 ? 'background:#fafafa;' : '';
-                html += `
-                    <tr style="${bg}">
-                        <td style="padding:7px 12px;font-size:12px;color:#333;">${item.name || ''}</td>
-                        <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.price > 0 ? fmtNum(item.price) : ''}</td>
-                        <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.qty > 1 ? item.qty : ''}</td>
-                        <td style="padding:7px 12px;font-size:12px;color:#333;text-align:right;">${fmtNum(item.total)}</td>
-                    </tr>`;
+                html += `<tr style="${bg}">
+                    <td style="padding:7px 12px;font-size:12px;color:#333;">${item.name || ''}</td>
+                    <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.price > 0 ? fmtNum(item.price) : ''}</td>
+                    <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.qty > 1 ? item.qty : ''}</td>
+                    <td style="padding:7px 12px;font-size:12px;color:#333;text-align:right;">${fmtNum(item.total)}</td>
+                </tr>`;
             });
-
             html += `</tbody></table>`;
 
-            // Totals only on last page
-            if (isLastPage) {
-                html += `
-                    <div style="margin-top:20px;display:flex;flex-direction:column;align-items:flex-end;">
-                        <div style="width:60%;height:2px;background:#1a1a1a;margin-bottom:12px;"></div>
-
-                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
-                            <span style="flex:1;text-align:right;padding-right:15px;">Sub-total :</span>
-                            <span style="min-width:130px;text-align:right;">${fmtNum(subtotal)}</span>
-                        </div>`;
+            // Totals on last page
+            if (isLast) {
+                html += `<div style="margin-top:20px;display:flex;flex-direction:column;align-items:flex-end;">
+                    <div style="width:60%;height:2px;background:#1a1a1a;margin-bottom:12px;"></div>
+                    <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                        <span style="flex:1;text-align:right;padding-right:15px;">Sub-total :</span>
+                        <span style="min-width:130px;text-align:right;">${fmtNum(subtotal)}</span>
+                    </div>`;
 
                 if (labour > 0) {
-                    html += `
-                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
-                            <span style="flex:1;text-align:right;padding-right:15px;">Labour Wage :</span>
-                            <span style="min-width:130px;text-align:right;">${fmtNum(labour)}</span>
-                        </div>`;
-                }
-
-                if (transport > 0) {
-                    html += `
-                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
-                            <span style="flex:1;text-align:right;padding-right:15px;">Transportation :</span>
-                            <span style="min-width:130px;text-align:right;">${fmtNum(transport)}</span>
-                        </div>`;
-                }
-
-                if (taxPct > 0) {
-                    html += `
-                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
-                            <span style="flex:1;text-align:right;padding-right:15px;">Tax (${taxPct}%) :</span>
-                            <span style="min-width:130px;text-align:right;">${fmtNum(tax)}</span>
-                        </div>`;
-                } else {
-                    html += `
-                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
-                            <span style="flex:1;text-align:right;padding-right:15px;">Tax :</span>
-                            <span style="min-width:130px;text-align:right;"></span>
-                        </div>`;
-                }
-
-                html += `
-                        <div style="width:220px;height:2px;background:#1a1a1a;margin:6px 0;"></div>
-                        <div style="display:flex;justify-content:flex-end;width:50%;font-size:18px;font-weight:800;color:#1a1a1a;">
-                            <span style="flex:1;text-align:right;padding-right:15px;">Total :</span>
-                            <span style="min-width:130px;text-align:right;">${fmtNum(total)}</span>
-                        </div>
-                    </div>
-
-                    <div style="text-align:center;font-size:20px;font-weight:700;color:#1a1a1a;margin:35px 0 25px 0;font-style:italic;">
-                        Thank you for your purchase!
-                    </div>
-
-                    <div style="margin-top:15px;">
-                        <h4 style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Contact Us</h4>
-                        <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">6381733447</p>
-                        <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">ellectra2025@gmail.com</p>
+                    html += `<div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                        <span style="flex:1;text-align:right;padding-right:15px;">Labour Wage :</span>
+                        <span style="min-width:130px;text-align:right;">${fmtNum(labour)}</span>
                     </div>`;
+                }
+                if (transport > 0) {
+                    html += `<div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                        <span style="flex:1;text-align:right;padding-right:15px;">Transportation :</span>
+                        <span style="min-width:130px;text-align:right;">${fmtNum(transport)}</span>
+                    </div>`;
+                }
+
+                html += `<div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                    <span style="flex:1;text-align:right;padding-right:15px;">Tax${taxPct > 0 ? ' (' + taxPct + '%)' : ''} :</span>
+                    <span style="min-width:130px;text-align:right;">${tax > 0 ? fmtNum(tax) : ''}</span>
+                </div>
+                <div style="width:220px;height:2px;background:#1a1a1a;margin:6px 0;"></div>
+                <div style="display:flex;justify-content:flex-end;width:50%;font-size:18px;font-weight:800;color:#1a1a1a;">
+                    <span style="flex:1;text-align:right;padding-right:15px;">Total :</span>
+                    <span style="min-width:130px;text-align:right;">${fmtNum(total)}</span>
+                </div></div>
+
+                <div style="text-align:center;font-size:20px;font-weight:700;color:#1a1a1a;margin:35px 0 25px 0;font-style:italic;">
+                    Thank you for your purchase!
+                </div>
+                <div style="margin-top:15px;">
+                    <h4 style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Contact Us</h4>
+                    <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">6381733447</p>
+                    <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">ellectra2025@gmail.com</p>
+                </div>`;
             }
 
-            // Swirl decoration
-            html += `
-                <div style="position:absolute;bottom:0;right:0;width:180px;height:180px;">
-                    ${getSwirlSVG()}
-                </div>
-            </div>`;
+            html += `<div style="position:absolute;bottom:0;right:0;width:180px;height:180px;">${getSwirlSVG()}</div></div>`;
         });
-
         return html;
     }
 
@@ -676,8 +627,7 @@
 
     function showToast(msg) {
         const t = document.getElementById('toast');
-        t.textContent = msg;
-        t.classList.add('show');
+        t.textContent = msg; t.classList.add('show');
         setTimeout(() => t.classList.remove('show'), 3000);
     }
 
@@ -696,7 +646,6 @@
             const pages = renderArea.querySelectorAll('[style*="min-height:1123px"]');
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfW = 210, pdfH = 297;
 
             for (let i = 0; i < pages.length; i++) {
                 if (i > 0) pdf.addPage();
@@ -706,12 +655,11 @@
                     width: 794, windowWidth: 794
                 });
                 const imgData = canvas.toDataURL('image/jpeg', 0.95);
-                const imgH = (canvas.height * pdfW) / canvas.width;
-                pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, Math.min(imgH, pdfH));
+                const imgH = (canvas.height * 210) / canvas.width;
+                pdf.addImage(imgData, 'JPEG', 0, 0, 210, Math.min(imgH, 297));
             }
 
-            const invNo = document.getElementById('invoiceNo').value.replace(/\//g, '-');
-            pdf.save(`Invoice_${invNo}.pdf`);
+            pdf.save(`Invoice_${document.getElementById('invoiceNo').value.replace(/\//g, '-')}.pdf`);
             showToast('✅ PDF Downloaded!');
             renderArea.innerHTML = '';
         } catch (err) {
@@ -732,7 +680,7 @@
 
     function resetForm() {
         if (!confirm('Reset all data?')) return;
-        document.getElementById('invoiceNo').value = 'ELE/00012/25-26';
+        document.getElementById('invoiceNo').value = 'ELE/00013/25-26';
         const d = new Date();
         document.getElementById('invoiceDate').value = `${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}`;
         document.getElementById('clientName').value = '';
@@ -741,9 +689,7 @@
         document.getElementById('labourWage').value = '0';
         document.getElementById('transportCost').value = '0';
         document.getElementById('itemsContainer').innerHTML = '';
-        itemCount = 0;
-        addItem();
-        calculateAll();
+        itemCount = 0; addItem(); calculateAll();
         showToast('🔄 Form Reset');
     }
 

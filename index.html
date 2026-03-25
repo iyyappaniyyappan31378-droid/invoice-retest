@@ -7,147 +7,88 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 30%, #FFF8E1 60%, #FFFDE7 100%);
-            min-height: 100vh;
-            color: #1a1a1a;
+            min-height: 100vh; color: #1a1a1a;
         }
-
         .app-header {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-            padding: 15px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 15px 40px; display: flex; align-items: center;
+            justify-content: space-between; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: sticky; top: 0; z-index: 100;
         }
-
         .header-left { display: flex; align-items: center; gap: 15px; }
-
-        .header-logo {
-            width: 45px; height: 45px; border-radius: 10px;
-            background: #FFD600; padding: 3px;
-        }
-
-        .header-title {
-            color: #FFD600; font-size: 22px; font-weight: 800;
-            letter-spacing: 3px; text-transform: uppercase;
-        }
-
+        .header-logo { width: 45px; height: 45px; border-radius: 10px; background: #FFD600; padding: 3px; }
+        .header-title { color: #FFD600; font-size: 22px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
         .header-subtitle { color: #FFF176; font-size: 11px; letter-spacing: 1px; }
-
         .main-container {
             max-width: 1400px; margin: 0 auto; padding: 25px;
             display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
         }
-
         .form-panel {
             background: #FFFEF5; border-radius: 16px; padding: 25px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.08);
             border: 2px solid #FFD600; height: fit-content;
         }
-
         .form-panel h2 {
             font-size: 20px; font-weight: 700; color: #1a1a1a;
             margin-bottom: 20px; padding-bottom: 10px;
             border-bottom: 3px solid #FFD600;
             display: flex; align-items: center; gap: 10px;
         }
-
         .form-section { margin-bottom: 20px; }
-
         .form-section h3 {
             font-size: 14px; font-weight: 600; color: #1a1a1a;
             margin-bottom: 12px; background: linear-gradient(90deg, #FFF9C4, transparent);
-            padding: 8px 14px; border-left: 4px solid #FFD600;
-            border-radius: 0 8px 8px 0;
+            padding: 8px 14px; border-left: 4px solid #FFD600; border-radius: 0 8px 8px 0;
         }
-
-        .form-row {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 12px; margin-bottom: 10px;
-        }
-
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
         .form-group { display: flex; flex-direction: column; }
         .form-group.full { grid-column: 1 / -1; }
-
         .form-group label {
             font-size: 11px; font-weight: 600; color: #555;
             margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;
         }
-
         .form-group input, .form-group textarea {
             padding: 9px 12px; border: 2px solid #E0E0E0; border-radius: 8px;
             font-size: 13px; font-family: 'Poppins', sans-serif;
             transition: all 0.3s ease; background: #fff;
         }
-
         .form-group input:focus, .form-group textarea:focus {
-            outline: none; border-color: #FFD600;
-            box-shadow: 0 0 0 3px rgba(255, 214, 0, 0.2);
+            outline: none; border-color: #FFD600; box-shadow: 0 0 0 3px rgba(255,214,0,0.2);
         }
-
         .form-group textarea { resize: vertical; min-height: 60px; }
-
-        .items-table-form {
-            width: 100%; border-collapse: collapse;
-            margin-top: 8px; font-size: 12px;
-        }
-
+        .items-table-form { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
         .items-table-form thead th {
-            background: #1a1a1a; color: #FFD600;
-            padding: 8px 6px; font-size: 10px;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            font-weight: 700; text-align: center;
+            background: #1a1a1a; color: #FFD600; padding: 8px 6px; font-size: 10px;
+            text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; text-align: center;
         }
-
         .items-table-form thead th:first-child { text-align: left; border-radius: 8px 0 0 0; }
         .items-table-form thead th:last-child { border-radius: 0 8px 0 0; }
-
         .items-table-form tbody td { padding: 3px 3px; }
-
         .items-table-form tbody td input {
             width: 100%; padding: 6px 8px; border: 1.5px solid #e8e8e8;
             border-radius: 5px; font-size: 12px; font-family: 'Poppins', sans-serif;
             transition: all 0.2s; background: #fff;
         }
-
         .items-table-form tbody td input:focus {
-            outline: none; border-color: #FFD600;
-            box-shadow: 0 0 0 2px rgba(255,214,0,0.15);
+            outline: none; border-color: #FFD600; box-shadow: 0 0 0 2px rgba(255,214,0,0.15);
         }
-
-        .items-table-form tbody td input.total-field {
-            background: #FFFDE7; font-weight: 600; text-align: right;
-        }
-
+        .items-table-form tbody td input.total-field { background: #FFFDE7; font-weight: 600; text-align: right; }
         .items-table-form tbody td input[type="number"] { text-align: right; }
-
         .btn-remove-sm {
             width: 28px; height: 28px; border: none; background: #FF5252;
             color: white; border-radius: 6px; cursor: pointer;
             font-size: 14px; font-weight: 700; transition: all 0.2s;
             display: flex; align-items: center; justify-content: center;
         }
-
         .btn-remove-sm:hover { background: #D32F2F; transform: scale(1.1); }
-
-        .items-scroll {
-            max-height: 400px; overflow-y: auto; border: 1px solid #eee;
-            border-radius: 0 0 8px 8px;
-        }
-
+        .items-scroll { max-height: 400px; overflow-y: auto; border: 1px solid #eee; border-radius: 0 0 8px 8px; }
         .items-scroll::-webkit-scrollbar { width: 6px; }
         .items-scroll::-webkit-scrollbar-track { background: #f5f5f5; }
         .items-scroll::-webkit-scrollbar-thumb { background: #FFD600; border-radius: 3px; }
-
         .btn-add {
             display: flex; align-items: center; gap: 6px;
             padding: 8px 16px; background: linear-gradient(135deg, #1a1a1a, #333);
@@ -155,47 +96,58 @@
             font-size: 13px; font-weight: 600; cursor: pointer;
             margin-top: 8px; transition: all 0.3s; font-family: 'Poppins', sans-serif;
         }
-
         .btn-add:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
 
+        /* Extra charges section */
+        .extra-charges {
+            margin-top: 15px; padding: 15px;
+            background: linear-gradient(135deg, #FFF8E1, #FFF9C4);
+            border-radius: 10px; border: 2px solid #FFD600;
+        }
+        .extra-charges h4 {
+            font-size: 13px; font-weight: 700; color: #1a1a1a;
+            margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+        }
+        .extra-charges h4 .badge {
+            background: #1a1a1a; color: #FFD600; padding: 2px 8px;
+            border-radius: 10px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .extra-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px;
+        }
+        .extra-group { display: flex; flex-direction: column; }
+        .extra-group label {
+            font-size: 11px; font-weight: 600; color: #555;
+            margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .extra-group input {
+            padding: 9px 12px; border: 2px solid #E0E0E0; border-radius: 8px;
+            font-size: 13px; font-family: 'Poppins', sans-serif;
+            transition: all 0.3s; background: #fff; text-align: right;
+        }
+        .extra-group input:focus {
+            outline: none; border-color: #FFD600; box-shadow: 0 0 0 3px rgba(255,214,0,0.2);
+        }
+
         .summary-bar {
-            display: grid; grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px; margin-top: 15px; padding: 12px;
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-            border-radius: 10px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            gap: 8px; margin-top: 15px; padding: 12px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border-radius: 10px;
         }
-
-        .summary-item {
-            text-align: center; padding: 8px;
-        }
-
-        .summary-item .s-label {
-            font-size: 10px; color: #FFF176; text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 4px;
-        }
-
-        .summary-item .s-value {
-            font-size: 18px; font-weight: 800; color: #FFD600;
-        }
-
+        .summary-item { text-align: center; padding: 6px; }
+        .summary-item .s-label { font-size: 9px; color: #FFF176; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+        .summary-item .s-value { font-size: 15px; font-weight: 800; color: #FFD600; }
         .tax-row {
             display: flex; align-items: center; gap: 12px;
-            margin-top: 12px; padding: 10px 15px;
-            background: #FFF9C4; border-radius: 8px;
+            margin-top: 12px; padding: 10px 15px; background: #FFF9C4; border-radius: 8px;
         }
-
         .tax-row label { font-size: 13px; font-weight: 600; }
-
         .tax-row input {
             padding: 7px 10px; border: 2px solid #FFD600;
-            border-radius: 6px; font-size: 13px; width: 80px;
-            font-family: 'Poppins', sans-serif;
+            border-radius: 6px; font-size: 13px; width: 80px; font-family: 'Poppins', sans-serif;
         }
-
         .tax-row input:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,214,0,0.3); }
-
         .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-
         .btn-generate {
             flex: 1; padding: 12px 20px;
             background: linear-gradient(135deg, #FFD600, #FFC107);
@@ -204,12 +156,7 @@
             transition: all 0.3s; font-family: 'Poppins', sans-serif;
             text-transform: uppercase; letter-spacing: 1px;
         }
-
-        .btn-generate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,214,0,0.4);
-        }
-
+        .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,214,0,0.4); }
         .btn-download {
             flex: 1; padding: 12px 20px;
             background: linear-gradient(135deg, #1a1a1a, #333);
@@ -218,680 +165,590 @@
             transition: all 0.3s; font-family: 'Poppins', sans-serif;
             text-transform: uppercase; letter-spacing: 1px;
         }
-
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
         .btn-reset {
             padding: 12px 16px; background: transparent;
             color: #999; border: 2px solid #ddd; border-radius: 10px;
             font-size: 16px; cursor: pointer; transition: all 0.3s;
         }
-
         .btn-reset:hover { border-color: #FF5252; color: #FF5252; }
 
-        /* PREVIEW */
         .preview-panel { position: sticky; top: 80px; height: fit-content; }
-
         .preview-label {
             font-size: 14px; font-weight: 700; color: #1a1a1a;
             margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
         }
-
         .preview-label span {
             background: #FFD600; padding: 3px 10px; border-radius: 15px;
             font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
         }
-
         .preview-scroll {
             max-height: calc(100vh - 130px); overflow-y: auto;
             border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
-
         .preview-scroll::-webkit-scrollbar { width: 8px; }
         .preview-scroll::-webkit-scrollbar-track { background: #eee; border-radius: 4px; }
         .preview-scroll::-webkit-scrollbar-thumb { background: #FFD600; border-radius: 4px; }
+        .preview-wrapper { transform: scale(0.62); transform-origin: top left; width: 161.3%; }
 
-        .preview-wrapper {
-            transform: scale(0.62); transform-origin: top left;
-            width: 161.3%;
-        }
-
-        /* INVOICE PAGE STYLES */
-        .invoice-page {
-            width: 794px; background: #fff; padding: 40px 50px;
-            position: relative; font-family: 'Poppins', sans-serif;
-            page-break-after: always;
-        }
-
-        .invoice-page.first-page { min-height: 1123px; }
-        .invoice-page.continuation { min-height: 1123px; padding-top: 30px; }
-
-        .inv-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .inv-logo { width: 130px; height: auto; }
-
-        .inv-title {
-            font-size: 44px; font-weight: 900; color: #1a1a1a;
-            letter-spacing: 8px; text-transform: uppercase;
-        }
-
-        .inv-red-line {
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, #D32F2F, #FF5252, #D32F2F);
-            margin: 12px 0 20px 0;
-        }
-
-        .inv-info { display: flex; justify-content: space-between; margin-bottom: 25px; }
-
-        .inv-meta { font-size: 12.5px; color: #333; line-height: 1.8; }
-        .inv-meta strong { color: #1a1a1a; }
-        .inv-meta-line { width: 45px; height: 3px; background: #1a1a1a; margin-top: 5px; }
-
-        .inv-to { text-align: right; font-size: 12.5px; color: #333; line-height: 1.8; }
-        .inv-to-label { font-weight: 700; font-size: 13px; color: #1a1a1a; }
-        .inv-to-name { font-weight: 700; font-size: 15px; color: #1a1a1a; margin: 4px 0; }
-
-        .inv-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-
-        .inv-table thead th {
-            text-align: left; font-size: 12px; font-weight: 700;
-            color: #1a1a1a; padding: 10px 12px;
-            border-top: 2px solid #1a1a1a; border-bottom: 2px solid #1a1a1a;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-
-        .inv-table thead th.c { text-align: center; }
-        .inv-table thead th.r { text-align: right; }
-
-        .inv-table tbody td {
-            padding: 6px 12px; font-size: 12px; color: #333;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .inv-table tbody td.c { text-align: center; }
-        .inv-table tbody td.r { text-align: right; }
-
-        .inv-table tbody tr:nth-child(even) { background: #fafafa; }
-
-        .inv-totals { margin-top: 15px; display: flex; flex-direction: column; align-items: flex-end; }
-
-        .inv-totals-line { width: 55%; height: 2px; background: #1a1a1a; margin-bottom: 12px; }
-
-        .inv-total-row {
-            display: flex; justify-content: flex-end; width: 40%;
-            margin-bottom: 4px; font-size: 13px; color: #333;
-        }
-
-        .inv-total-row .tl { flex: 1; text-align: right; padding-right: 15px; }
-        .inv-total-row .tv { min-width: 120px; text-align: right; }
-
-        .inv-total-divider { width: 200px; height: 2px; background: #1a1a1a; margin: 6px 0; align-self: flex-end; }
-
-        .inv-grand { font-size: 18px; font-weight: 800; color: #1a1a1a; }
-
-        .inv-thankyou {
-            text-align: center; font-size: 20px; font-weight: 700;
-            color: #1a1a1a; margin: 35px 0 25px 0; font-style: italic;
-        }
-
-        .inv-contact { margin-top: 15px; }
-        .inv-contact h4 { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
-        .inv-contact p { font-size: 12px; color: #555; line-height: 1.5; margin: 0; }
-
-        .inv-decoration { position: absolute; bottom: 0; right: 0; width: 180px; height: 180px; }
-
-        .cont-header {
-            font-size: 11px; color: #999; text-align: center;
-            padding: 8px 0; margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* TOAST */
         .toast {
             position: fixed; top: 80px; right: 20px;
             padding: 12px 22px; background: #1a1a1a; color: #FFD600;
             border-radius: 8px; font-weight: 600; font-size: 13px;
             z-index: 1000; transform: translateX(400px);
-            transition: transform 0.4s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
-
         .toast.show { transform: translateX(0); }
-
         .loading-overlay {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.6);
             z-index: 999; justify-content: center; align-items: center;
             flex-direction: column; gap: 15px;
         }
-
         .loading-overlay.show { display: flex; }
-
         .spinner {
             width: 50px; height: 50px;
             border: 4px solid #FFF9C4; border-top: 4px solid #FFD600;
             border-radius: 50%; animation: spin 0.8s linear infinite;
         }
-
         .loading-text { color: #FFD600; font-weight: 600; font-size: 14px; }
-
         @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 1200px) {
             .main-container { grid-template-columns: 1fr; }
             .preview-wrapper { transform: scale(0.5); width: 200%; }
             .preview-panel { position: relative; top: 0; }
+            .summary-bar { grid-template-columns: repeat(3, 1fr); }
         }
-
         @media (max-width: 768px) {
             .main-container { padding: 10px; }
             .preview-wrapper { transform: scale(0.35); width: 285.7%; }
             .btn-group { flex-direction: column; }
             .app-header { padding: 12px 15px; }
             .header-title { font-size: 16px; letter-spacing: 2px; }
+            .extra-row { grid-template-columns: 1fr; }
+            .summary-bar { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <header class="app-header">
-        <div class="header-left">
-            <img src="https://raw.githubusercontent.com/iyyappaniyyappan31378-droid/invoice-generater/main/Ellectra_w01wap%20(2).png" alt="Logo" class="header-logo" crossorigin="anonymous">
-            <div>
-                <div class="header-title">Ellectra</div>
-                <div class="header-subtitle">Invoice Generator</div>
-            </div>
+<header class="app-header">
+    <div class="header-left">
+        <img src="https://raw.githubusercontent.com/iyyappaniyyappan31378-droid/invoice-generater/main/Ellectra_w01wap%20(2).png" alt="Logo" class="header-logo" crossorigin="anonymous">
+        <div>
+            <div class="header-title">Ellectra</div>
+            <div class="header-subtitle">Invoice Generator</div>
         </div>
-    </header>
-
-    <div class="toast" id="toast"></div>
-
-    <div class="loading-overlay" id="loading">
-        <div class="spinner"></div>
-        <div class="loading-text">Generating PDF...</div>
     </div>
+</header>
 
-    <div class="main-container">
+<div class="toast" id="toast"></div>
+<div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Generating PDF...</div>
+</div>
 
-        <!-- FORM -->
-        <div class="form-panel">
-            <h2>📝 Create Invoice</h2>
+<div class="main-container">
+    <!-- FORM -->
+    <div class="form-panel">
+        <h2>📝 Create Invoice</h2>
 
-            <div class="form-section">
-                <h3>📋 Invoice Details</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Invoice Number</label>
-                        <input type="text" id="invoiceNo" value="ELE/00011/25-26">
-                    </div>
-                    <div class="form-group">
-                        <label>Date</label>
-                        <input type="text" id="invoiceDate" value="19-3-2026">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>👤 Bill To</h3>
-                <div class="form-row">
-                    <div class="form-group full">
-                        <label>Client Name</label>
-                        <input type="text" id="clientName" placeholder="Client name">
-                    </div>
+        <div class="form-section">
+            <h3>📋 Invoice Details</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Invoice Number</label>
+                    <input type="text" id="invoiceNo" value="ELE/00011/25-26">
                 </div>
                 <div class="form-group">
-                    <label>Address</label>
-                    <textarea id="clientAddress" placeholder="Client address"></textarea>
+                    <label>Date</label>
+                    <input type="text" id="invoiceDate" value="19-3-2026">
                 </div>
-            </div>
-
-            <div class="form-section">
-                <h3>🛒 Items</h3>
-                <table class="items-table-form">
-                    <thead>
-                        <tr>
-                            <th style="width:5%">#</th>
-                            <th style="width:35%">Item Name</th>
-                            <th style="width:18%">Price</th>
-                            <th style="width:12%">Qty</th>
-                            <th style="width:20%">Total</th>
-                            <th style="width:10%"></th>
-                        </tr>
-                    </thead>
-                </table>
-                <div class="items-scroll">
-                    <table class="items-table-form" id="itemsTableBody">
-                        <tbody id="itemsContainer"></tbody>
-                    </table>
-                </div>
-                <button class="btn-add" onclick="addItem()">+ Add Item</button>
-            </div>
-
-            <div class="tax-row">
-                <label>Tax %:</label>
-                <input type="number" id="taxPercent" value="0" min="0" max="100" step="0.1" oninput="calculateAll()">
-                <span style="margin-left:10px; font-weight:600;">Tax: ₹<span id="taxDisplay">0.00</span></span>
-            </div>
-
-            <div class="summary-bar">
-                <div class="summary-item">
-                    <div class="s-label">Items</div>
-                    <div class="s-value" id="sumItems">0</div>
-                </div>
-                <div class="summary-item">
-                    <div class="s-label">Sub-total</div>
-                    <div class="s-value" id="sumSubtotal">₹0</div>
-                </div>
-                <div class="summary-item">
-                    <div class="s-label">Total</div>
-                    <div class="s-value" id="sumTotal">₹0</div>
-                </div>
-            </div>
-
-            <div class="btn-group">
-                <button class="btn-generate" onclick="generatePreview()">👁️ Preview</button>
-                <button class="btn-download" onclick="downloadPDF()">📥 Download PDF</button>
-                <button class="btn-reset" onclick="resetForm()">🔄</button>
             </div>
         </div>
 
-        <!-- PREVIEW -->
-        <div class="preview-panel">
-            <div class="preview-label">
-                Invoice Preview <span>Live</span>
-            </div>
-            <div class="preview-scroll">
-                <div class="preview-wrapper">
-                    <div id="invoicePreview"></div>
+        <div class="form-section">
+            <h3>👤 Bill To</h3>
+            <div class="form-row">
+                <div class="form-group full">
+                    <label>Client Name</label>
+                    <input type="text" id="clientName" placeholder="Client name">
                 </div>
             </div>
+            <div class="form-group">
+                <label>Address</label>
+                <textarea id="clientAddress" placeholder="Client address"></textarea>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>🛒 Items</h3>
+            <table class="items-table-form">
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>
+                        <th style="width:35%">Item Name</th>
+                        <th style="width:18%">Price</th>
+                        <th style="width:12%">Qty</th>
+                        <th style="width:20%">Total</th>
+                        <th style="width:10%"></th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="items-scroll">
+                <table class="items-table-form" id="itemsTableBody">
+                    <tbody id="itemsContainer"></tbody>
+                </table>
+            </div>
+            <button class="btn-add" onclick="addItem()">+ Add Item</button>
+        </div>
+
+        <!-- EXTRA CHARGES: Labour & Transportation -->
+        <div class="extra-charges">
+            <h4>💰 Additional Charges <span class="badge">Added to Total</span></h4>
+            <div class="extra-row">
+                <div class="extra-group">
+                    <label>🔧 Labour Wage (₹)</label>
+                    <input type="number" id="labourWage" value="0" min="0" step="0.01" oninput="calculateAll()">
+                </div>
+                <div class="extra-group">
+                    <label>🚚 Transportation Cost (₹)</label>
+                    <input type="number" id="transportCost" value="0" min="0" step="0.01" oninput="calculateAll()">
+                </div>
+            </div>
+        </div>
+
+        <div class="tax-row">
+            <label>Tax %:</label>
+            <input type="number" id="taxPercent" value="0" min="0" max="100" step="0.1" oninput="calculateAll()">
+            <span style="margin-left:10px; font-weight:600;">Tax: ₹<span id="taxDisplay">0.00</span></span>
+        </div>
+
+        <div class="summary-bar">
+            <div class="summary-item">
+                <div class="s-label">Items</div>
+                <div class="s-value" id="sumItems">0</div>
+            </div>
+            <div class="summary-item">
+                <div class="s-label">Materials</div>
+                <div class="s-value" id="sumSubtotal">₹0</div>
+            </div>
+            <div class="summary-item">
+                <div class="s-label">Labour</div>
+                <div class="s-value" id="sumLabour">₹0</div>
+            </div>
+            <div class="summary-item">
+                <div class="s-label">Transport</div>
+                <div class="s-value" id="sumTransport">₹0</div>
+            </div>
+            <div class="summary-item">
+                <div class="s-label">Grand Total</div>
+                <div class="s-value" id="sumTotal">₹0</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-generate" onclick="generatePreview()">👁️ Preview</button>
+            <button class="btn-download" onclick="downloadPDF()">📥 Download PDF</button>
+            <button class="btn-reset" onclick="resetForm()">🔄</button>
         </div>
     </div>
 
-    <!-- Hidden render area for PDF -->
-    <div id="pdfRender" style="position:absolute;left:-9999px;top:0;"></div>
+    <!-- PREVIEW -->
+    <div class="preview-panel">
+        <div class="preview-label">
+            Invoice Preview <span>Live</span>
+        </div>
+        <div class="preview-scroll">
+            <div class="preview-wrapper">
+                <div id="invoicePreview"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        let itemCount = 0;
-        const LOGO_URL = 'https://raw.githubusercontent.com/iyyappaniyyappan31378-droid/invoice-generater/main/Ellectra_w01wap%20(2).png';
+<div id="pdfRender" style="position:absolute;left:-9999px;top:0;"></div>
 
-        // Pre-loaded items from your bill
-        const preloadedItems = [
-            { name: '3/4 Hose', price: 320 },
-            { name: '1/2 Hose', price: 340 },
-            { name: '250 X4.8 Tag', price: 70 },
-            { name: '1 star', price: 35 },
-            { name: '3/4 star', price: 30 },
-            { name: '2 star', price: 66 },
-            { name: '1 Pipe', price: 190 },
-            { name: 'Bend', price: 60 },
-            { name: 'Clamp', price: 60 },
-            { name: '6mm PVC', price: 36 },
-            { name: '4M Box', price: 140 },
-            { name: 'Modular MCB', price: 810 },
-            { name: 'Dumy', price: 100 },
-            { name: 'AC Box Modular', price: 940 },
-            { name: 'Indicator', price: 75 },
-            { name: '63A 4pole RCCB ANCL', price: 2665 },
-            { name: '3PHASE DB BOX', price: 1950 },
-            { name: '63A 4 POLE MCB', price: 1595 },
-            { name: '63A Rotary', price: 1185 },
-            { name: '10/6 20/6 16/6 MCB', price: 1800 },
-            { name: '1 coil 60 SQ m', price: 7660 },
-            { name: '4 coil 2.5 131/2 led/2', price: 13920 },
-            { name: '2 coil 4.0 g/1 y/1', price: 11060 },
-            { name: '12 coil 1.5 12/4 R/4 B1/4 Y/4', price: 25476 },
-            { name: '8 m PLATE', price: 714 },
-            { name: '4m plate', price: 474 },
-            { name: '12m plate', price: 1192 },
-            { name: '2m plate', price: 324 },
-            { name: 'Switch (vihan)', price: 900 },
-            { name: 'Socket 5pin', price: 1380 },
-            { name: '15A Switch', price: 1020 },
-            { name: '15A Socket', price: 1980 },
-            { name: 'Tape', price: 100 },
-            { name: '2m PVC BOX', price: 600 },
-            { name: '15A 3pm TOP', price: 0 },
-            { name: '250 TAG', price: 140 },
-            { name: 'PIPE', price: 190 },
-        ];
+<script>
+    let itemCount = 0;
+    const LOGO_URL = 'https://raw.githubusercontent.com/iyyappaniyyappan31378-droid/invoice-generater/main/Ellectra_w01wap%20(2).png';
 
-        function init() {
-            preloadedItems.forEach(item => addItem(item.name, item.price, 1));
-            calculateAll();
-            generatePreview();
+    const preloadedItems = [
+        { name: '3/4 Hose', price: 320, qty: 1 },
+        { name: '1/2 Hose', price: 340, qty: 1 },
+        { name: '250 X4.8 Tag', price: 70, qty: 1 },
+        { name: '1 star', price: 35, qty: 1 },
+        { name: '3/4 star', price: 30, qty: 1 },
+        { name: '2 star', price: 66, qty: 1 },
+        { name: '1 Pipe', price: 190, qty: 1 },
+        { name: 'Bend', price: 60, qty: 1 },
+        { name: 'Clamp', price: 60, qty: 1 },
+        { name: '6mm PVC', price: 36, qty: 1 },
+        { name: '4M Box', price: 140, qty: 1 },
+        { name: 'Modular MCB', price: 810, qty: 1 },
+        { name: 'Dumy', price: 100, qty: 1 },
+        { name: 'AC Box Modular', price: 940, qty: 1 },
+        { name: 'Indicator', price: 75, qty: 1 },
+        { name: '63A 4pole RCCB ANCL', price: 2665, qty: 1 },
+        { name: '3PHASE DB BOX', price: 1950, qty: 1 },
+        { name: '63A 4 POLE MCB', price: 1595, qty: 1 },
+        { name: '63A Rotary', price: 1185, qty: 1 },
+        { name: '10/6 20/6 16/6 MCB', price: 1800, qty: 1 },
+        { name: '1 coil 60 SQ m', price: 7660, qty: 1 },
+        { name: '4 coil 2.5 131/2 led/2', price: 13920, qty: 1 },
+        { name: '2 coil 4.0 g/1 y/1', price: 11060, qty: 1 },
+        { name: '12 coil 1.5 12/4 R/4 B1/4 Y/4', price: 25476, qty: 1 },
+        { name: '8 m PLATE', price: 714, qty: 1 },
+        { name: '4m plate', price: 474, qty: 1 },
+        { name: '12m plate', price: 1192, qty: 1 },
+        { name: '2m plate', price: 324, qty: 1 },
+        { name: 'Switch (vihan)', price: 900, qty: 1 },
+        { name: 'Socket 5pin', price: 1380, qty: 1 },
+        { name: '15A Switch', price: 1020, qty: 1 },
+        { name: '15A Socket', price: 1980, qty: 1 },
+        { name: 'Tape', price: 100, qty: 1 },
+        { name: '2m PVC BOX', price: 600, qty: 1 },
+        { name: '15A 3pm TOP', price: 0, qty: 1 },
+        { name: '250 TAG', price: 140, qty: 1 },
+        { name: 'PIPE', price: 190, qty: 1 },
+    ];
+
+    function init() {
+        preloadedItems.forEach(item => addItem(item.name, item.price, item.qty));
+        calculateAll();
+        generatePreview();
+    }
+
+    function addItem(name = '', price = '', qty = 1) {
+        itemCount++;
+        const tbody = document.getElementById('itemsContainer');
+        const tr = document.createElement('tr');
+        tr.id = `item-${itemCount}`;
+        const t = (parseFloat(price) || 0) * (parseFloat(qty) || 1);
+        tr.innerHTML = `
+            <td style="text-align:center;color:#999;font-size:11px;width:5%">${itemCount}</td>
+            <td style="width:35%"><input type="text" class="item-name" value="${name}" oninput="generatePreview()"></td>
+            <td style="width:18%"><input type="number" class="item-price" value="${price}" min="0" step="0.01" oninput="calcRow(this);calculateAll()"></td>
+            <td style="width:12%"><input type="number" class="item-qty" value="${qty}" min="1" oninput="calcRow(this);calculateAll()"></td>
+            <td style="width:20%"><input type="text" class="item-total total-field" readonly value="${t.toFixed(2)}"></td>
+            <td style="width:10%;text-align:center"><button class="btn-remove-sm" onclick="removeItem('item-${itemCount}')">×</button></td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+    function removeItem(id) {
+        const rows = document.querySelectorAll('#itemsContainer tr');
+        if (rows.length <= 1) { showToast('⚠️ Need at least one item'); return; }
+        document.getElementById(id).remove();
+        renumberItems();
+        calculateAll();
+        generatePreview();
+    }
+
+    function renumberItems() {
+        const rows = document.querySelectorAll('#itemsContainer tr');
+        rows.forEach((row, i) => { row.querySelector('td').textContent = i + 1; });
+    }
+
+    function calcRow(input) {
+        const tr = input.closest('tr');
+        const p = parseFloat(tr.querySelector('.item-price').value) || 0;
+        const q = parseFloat(tr.querySelector('.item-qty').value) || 1;
+        tr.querySelector('.item-total').value = (p * q).toFixed(2);
+    }
+
+    function calculateAll() {
+        const rows = document.querySelectorAll('#itemsContainer tr');
+        let subtotal = 0, count = 0;
+        rows.forEach(row => {
+            const p = parseFloat(row.querySelector('.item-price').value) || 0;
+            const q = parseFloat(row.querySelector('.item-qty').value) || 1;
+            subtotal += p * q;
+            if (row.querySelector('.item-name').value.trim()) count++;
+        });
+
+        const labour = parseFloat(document.getElementById('labourWage').value) || 0;
+        const transport = parseFloat(document.getElementById('transportCost').value) || 0;
+        const beforeTax = subtotal + labour + transport;
+        const taxPct = parseFloat(document.getElementById('taxPercent').value) || 0;
+        const tax = beforeTax * (taxPct / 100);
+        const total = beforeTax + tax;
+
+        document.getElementById('taxDisplay').textContent = fmtNum(tax);
+        document.getElementById('sumItems').textContent = count;
+        document.getElementById('sumSubtotal').textContent = '₹' + fmtNum(subtotal);
+        document.getElementById('sumLabour').textContent = '₹' + fmtNum(labour);
+        document.getElementById('sumTransport').textContent = '₹' + fmtNum(transport);
+        document.getElementById('sumTotal').textContent = '₹' + fmtNum(total);
+
+        generatePreview();
+        return { subtotal, labour, transport, tax, total, count };
+    }
+
+    function fmtNum(n) {
+        return n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function getItems() {
+        const rows = document.querySelectorAll('#itemsContainer tr');
+        const items = [];
+        rows.forEach(row => {
+            const name = row.querySelector('.item-name').value.trim();
+            const price = parseFloat(row.querySelector('.item-price').value) || 0;
+            const qty = parseFloat(row.querySelector('.item-qty').value) || 1;
+            items.push({ name, price, qty, total: price * qty });
+        });
+        return items;
+    }
+
+    function getSwirlSVG() {
+        let lines = '';
+        for (let i = 0; i < 35; i++) {
+            const x1 = 180 - i * 3, y1 = i * 4, x2 = 40 + i * 2, y2 = 180 - i * 1.5;
+            const op = (0.08 + i * 0.02).toFixed(2);
+            lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#666" stroke-width="0.5" opacity="${op}"/>`;
+        }
+        return `<svg width="180" height="180" viewBox="0 0 180 180">${lines}</svg>`;
+    }
+
+    function generateInvoiceHTML() {
+        const invoiceNo = document.getElementById('invoiceNo').value;
+        const invoiceDate = document.getElementById('invoiceDate').value;
+        const clientName = document.getElementById('clientName').value || '...';
+        const clientAddress = document.getElementById('clientAddress').value;
+        const taxPct = parseFloat(document.getElementById('taxPercent').value) || 0;
+        const labour = parseFloat(document.getElementById('labourWage').value) || 0;
+        const transport = parseFloat(document.getElementById('transportCost').value) || 0;
+        const items = getItems();
+
+        let subtotal = 0;
+        items.forEach(i => subtotal += i.total);
+        const beforeTax = subtotal + labour + transport;
+        const tax = beforeTax * (taxPct / 100);
+        const total = beforeTax + tax;
+
+        const addrHTML = clientAddress.split('\n').filter(l => l.trim()).join('<br>');
+
+        const ITEMS_FIRST_PAGE = 25;
+        const ITEMS_PER_PAGE = 35;
+        const pages = [];
+        let remaining = [...items];
+        pages.push({ items: remaining.splice(0, ITEMS_FIRST_PAGE), isFirst: true });
+        while (remaining.length > 0) {
+            pages.push({ items: remaining.splice(0, ITEMS_PER_PAGE), isFirst: false });
         }
 
-        function addItem(name = '', price = '', qty = 1) {
-            itemCount++;
-            const tbody = document.getElementById('itemsContainer');
-            const tr = document.createElement('tr');
-            tr.id = `item-${itemCount}`;
-            tr.innerHTML = `
-                <td style="text-align:center;color:#999;font-size:11px;width:5%">${itemCount}</td>
-                <td style="width:35%"><input type="text" class="item-name" value="${name}" oninput="generatePreview()"></td>
-                <td style="width:18%"><input type="number" class="item-price" value="${price}" min="0" step="0.01" oninput="calcRow(this);calculateAll()"></td>
-                <td style="width:12%"><input type="number" class="item-qty" value="${qty}" min="1" oninput="calcRow(this);calculateAll()"></td>
-                <td style="width:20%"><input type="text" class="item-total total-field" readonly value="${(price * qty).toFixed(2)}"></td>
-                <td style="width:10%;text-align:center"><button class="btn-remove-sm" onclick="removeItem('item-${itemCount}')">×</button></td>
-            `;
-            tbody.appendChild(tr);
-        }
+        let html = '';
 
-        function removeItem(id) {
-            const rows = document.querySelectorAll('#itemsContainer tr');
-            if (rows.length <= 1) { showToast('⚠️ Need at least one item'); return; }
-            document.getElementById(id).remove();
-            renumberItems();
-            calculateAll();
-            generatePreview();
-        }
+        pages.forEach((page, pageIdx) => {
+            const isLastPage = pageIdx === pages.length - 1;
 
-        function renumberItems() {
-            const rows = document.querySelectorAll('#itemsContainer tr');
-            rows.forEach((row, i) => { row.querySelector('td').textContent = i + 1; });
-        }
+            html += `<div style="width:794px;min-height:1123px;background:#fff;padding:${page.isFirst ? '40px 50px' : '30px 50px'};position:relative;overflow:hidden;font-family:'Poppins',sans-serif;page-break-after:always;">`;
 
-        function calcRow(input) {
-            const tr = input.closest('tr');
-            const p = parseFloat(tr.querySelector('.item-price').value) || 0;
-            const q = parseFloat(tr.querySelector('.item-qty').value) || 1;
-            tr.querySelector('.item-total').value = (p * q).toFixed(2);
-        }
-
-        function calculateAll() {
-            const rows = document.querySelectorAll('#itemsContainer tr');
-            let subtotal = 0;
-            let count = 0;
-            rows.forEach(row => {
-                const p = parseFloat(row.querySelector('.item-price').value) || 0;
-                const q = parseFloat(row.querySelector('.item-qty').value) || 1;
-                subtotal += p * q;
-                if (row.querySelector('.item-name').value.trim()) count++;
-            });
-
-            const taxPct = parseFloat(document.getElementById('taxPercent').value) || 0;
-            const tax = subtotal * (taxPct / 100);
-            const total = subtotal + tax;
-
-            document.getElementById('taxDisplay').textContent = fmtNum(tax);
-            document.getElementById('sumItems').textContent = count;
-            document.getElementById('sumSubtotal').textContent = '₹' + fmtNum(subtotal);
-            document.getElementById('sumTotal').textContent = '₹' + fmtNum(total);
-
-            generatePreview();
-            return { subtotal, tax, total, count };
-        }
-
-        function fmtNum(n) {
-            return n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-
-        function getItems() {
-            const rows = document.querySelectorAll('#itemsContainer tr');
-            const items = [];
-            rows.forEach(row => {
-                const name = row.querySelector('.item-name').value.trim();
-                const price = parseFloat(row.querySelector('.item-price').value) || 0;
-                const qty = parseFloat(row.querySelector('.item-qty').value) || 1;
-                items.push({ name, price, qty, total: price * qty });
-            });
-            return items;
-        }
-
-        function getSwirlSVG() {
-            let lines = '';
-            for (let i = 0; i < 35; i++) {
-                const x1 = 180 - i * 3;
-                const y1 = i * 4;
-                const x2 = 40 + i * 2;
-                const y2 = 180 - i * 1.5;
-                const op = (0.08 + i * 0.02).toFixed(2);
-                lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#666" stroke-width="0.5" opacity="${op}"/>`;
-            }
-            return `<svg width="180" height="180" viewBox="0 0 180 180">${lines}</svg>`;
-        }
-
-        function generateInvoiceHTML() {
-            const invoiceNo = document.getElementById('invoiceNo').value;
-            const invoiceDate = document.getElementById('invoiceDate').value;
-            const clientName = document.getElementById('clientName').value || '...';
-            const clientAddress = document.getElementById('clientAddress').value;
-            const taxPct = parseFloat(document.getElementById('taxPercent').value) || 0;
-            const items = getItems();
-
-            let subtotal = 0;
-            items.forEach(i => subtotal += i.total);
-            const tax = subtotal * (taxPct / 100);
-            const total = subtotal + tax;
-
-            const addrHTML = clientAddress.split('\n').filter(l => l.trim()).join('<br>');
-
-            // Split items into pages
-            const ITEMS_FIRST_PAGE = 25;
-            const ITEMS_PER_PAGE = 35;
-
-            const pages = [];
-            let remaining = [...items];
-            let firstBatch = remaining.splice(0, ITEMS_FIRST_PAGE);
-            pages.push({ items: firstBatch, isFirst: true });
-
-            while (remaining.length > 0) {
-                pages.push({ items: remaining.splice(0, ITEMS_PER_PAGE), isFirst: false });
-            }
-
-            let html = '';
-
-            pages.forEach((page, pageIdx) => {
-                const isLastPage = pageIdx === pages.length - 1;
-
-                html += `<div class="invoice-page ${page.isFirst ? 'first-page' : 'continuation'}" style="width:794px;min-height:1123px;background:#fff;padding:${page.isFirst ? '40px 50px' : '30px 50px'};position:relative;overflow:hidden;font-family:'Poppins',sans-serif;">`;
-
-                if (page.isFirst) {
-                    // Header
-                    html += `
-                        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-                            <img src="${LOGO_URL}" alt="Ellectra" style="width:130px;height:auto;" crossorigin="anonymous">
-                            <div style="font-size:44px;font-weight:900;color:#1a1a1a;letter-spacing:8px;text-transform:uppercase;">INVOICE</div>
-                        </div>
-                        <div style="width:100%;height:3px;background:linear-gradient(90deg,#D32F2F,#FF5252,#D32F2F);margin:12px 0 20px 0;"></div>
-                        <div style="display:flex;justify-content:space-between;margin-bottom:25px;">
-                            <div style="font-size:12.5px;color:#333;line-height:1.8;">
-                                <div>Invoice No :<strong>${invoiceNo}</strong></div>
-                                <div>Date : <strong>${invoiceDate}</strong></div>
-                                <div style="width:45px;height:3px;background:#1a1a1a;margin-top:5px;"></div>
-                            </div>
-                            <div style="text-align:right;font-size:12.5px;color:#333;line-height:1.8;">
-                                <div style="font-weight:700;font-size:13px;color:#1a1a1a;">Invoice to :</div>
-                                <div style="font-weight:700;font-size:15px;color:#1a1a1a;margin:4px 0;">${clientName}</div>
-                                <div>${addrHTML}</div>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // Continuation header
-                    html += `
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #eee;">
-                            <img src="${LOGO_URL}" alt="Ellectra" style="width:80px;height:auto;" crossorigin="anonymous">
-                            <div style="font-size:11px;color:#999;">Invoice ${invoiceNo} — Page ${pageIdx + 1}</div>
-                        </div>
-                    `;
-                }
-
-                // Items table
+            if (page.isFirst) {
                 html += `
-                    <table style="width:100%;border-collapse:collapse;margin:10px 0;">
-                        <thead>
-                            <tr>
-                                <th style="text-align:left;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">ITEMS</th>
-                                <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">PRICE</th>
-                                <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">QTY</th>
-                                <th style="text-align:right;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">TOTAL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
-
-                page.items.forEach((item, idx) => {
-                    const bg = idx % 2 === 1 ? 'background:#fafafa;' : '';
-                    html += `
-                        <tr style="${bg}">
-                            <td style="padding:7px 12px;font-size:12px;color:#333;">${item.name || ''}</td>
-                            <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.price > 0 ? fmtNum(item.price) : ''}</td>
-                            <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.qty > 1 ? item.qty : ''}</td>
-                            <td style="padding:7px 12px;font-size:12px;color:#333;text-align:right;">${fmtNum(item.total)}</td>
-                        </tr>
-                    `;
-                });
-
-                html += `</tbody></table>`;
-
-                // Totals and footer only on last page
-                if (isLastPage) {
-                    html += `
-                        <div style="margin-top:20px;display:flex;flex-direction:column;align-items:flex-end;">
-                            <div style="width:55%;height:2px;background:#1a1a1a;margin-bottom:12px;"></div>
-                            <div style="display:flex;justify-content:flex-end;width:45%;margin-bottom:4px;font-size:13px;color:#333;">
-                                <span style="flex:1;text-align:right;padding-right:15px;">Sub-total :</span>
-                                <span style="min-width:120px;text-align:right;">${fmtNum(subtotal)}</span>
-                            </div>
-                            <div style="display:flex;justify-content:flex-end;width:45%;margin-bottom:4px;font-size:13px;color:#333;">
-                                <span style="flex:1;text-align:right;padding-right:15px;">Tax${taxPct > 0 ? ' ('+taxPct+'%)':''} :</span>
-                                <span style="min-width:120px;text-align:right;">${tax > 0 ? fmtNum(tax) : ''}</span>
-                            </div>
-                            <div style="width:200px;height:2px;background:#1a1a1a;margin:6px 0;"></div>
-                            <div style="display:flex;justify-content:flex-end;width:45%;font-size:18px;font-weight:800;color:#1a1a1a;">
-                                <span style="flex:1;text-align:right;padding-right:15px;">Total :</span>
-                                <span style="min-width:120px;text-align:right;">${fmtNum(total)}</span>
-                            </div>
-                        </div>
-
-                        <div style="text-align:center;font-size:20px;font-weight:700;color:#1a1a1a;margin:35px 0 25px 0;font-style:italic;">
-                            Thank you for your purchase!
-                        </div>
-
-                        <div style="margin-top:15px;">
-                            <h4 style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Contact Us</h4>
-                            <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">6381733447</p>
-                            <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">ellectra2025@gmail.com</p>
-                        </div>
-                    `;
-                }
-
-                // Swirl decoration
-                html += `
-                    <div style="position:absolute;bottom:0;right:0;width:180px;height:180px;">
-                        ${getSwirlSVG()}
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+                        <img src="${LOGO_URL}" alt="Ellectra" style="width:130px;height:auto;" crossorigin="anonymous">
+                        <div style="font-size:44px;font-weight:900;color:#1a1a1a;letter-spacing:8px;text-transform:uppercase;">INVOICE</div>
                     </div>
-                `;
-
-                html += `</div>`; // close page
-            });
-
-            return html;
-        }
-
-        function generatePreview() {
-            document.getElementById('invoicePreview').innerHTML = generateInvoiceHTML();
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
-        }
-
-        async function downloadPDF() {
-            const items = getItems().filter(i => i.name);
-            if (items.length === 0) { showToast('⚠️ Add items first'); return; }
-
-            document.getElementById('loading').classList.add('show');
-
-            try {
-                // We'll use html2canvas + jsPDF approach
-                // First, dynamically load html2canvas if not available
-                if (typeof html2canvas === 'undefined') {
-                    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-                }
-
-                const renderArea = document.getElementById('pdfRender');
-                renderArea.innerHTML = generateInvoiceHTML();
-
-                // Wait for images to load
-                await new Promise(r => setTimeout(r, 1000));
-
-                const pages = renderArea.querySelectorAll('.invoice-page, [style*="min-height:1123px"]');
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = 210;
-                const pdfHeight = 297;
-
-                for (let i = 0; i < pages.length; i++) {
-                    if (i > 0) pdf.addPage();
-
-                    const canvas = await html2canvas(pages[i], {
-                        scale: 2,
-                        useCORS: true,
-                        allowTaint: true,
-                        logging: false,
-                        backgroundColor: '#ffffff',
-                        width: 794,
-                        windowWidth: 794
-                    });
-
-                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
-                    const imgWidth = pdfWidth;
-                    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-
-                    pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pdfHeight));
-                }
-
-                const invoiceNo = document.getElementById('invoiceNo').value.replace(/\//g, '-');
-                pdf.save(`Invoice_${invoiceNo}.pdf`);
-                showToast('✅ PDF Downloaded!');
-
-                renderArea.innerHTML = '';
-            } catch (err) {
-                console.error(err);
-                showToast('❌ Error: ' + err.message);
-            } finally {
-                document.getElementById('loading').classList.remove('show');
+                    <div style="width:100%;height:3px;background:linear-gradient(90deg,#D32F2F,#FF5252,#D32F2F);margin:12px 0 20px 0;"></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:25px;">
+                        <div style="font-size:12.5px;color:#333;line-height:1.8;">
+                            <div>Invoice No :<strong>${invoiceNo}</strong></div>
+                            <div>Date : <strong>${invoiceDate}</strong></div>
+                            <div style="width:45px;height:3px;background:#1a1a1a;margin-top:5px;"></div>
+                        </div>
+                        <div style="text-align:right;font-size:12.5px;color:#333;line-height:1.8;">
+                            <div style="font-weight:700;font-size:13px;color:#1a1a1a;">Invoice to :</div>
+                            <div style="font-weight:700;font-size:15px;color:#1a1a1a;margin:4px 0;">${clientName}</div>
+                            <div>${addrHTML}</div>
+                        </div>
+                    </div>`;
+            } else {
+                html += `
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #eee;">
+                        <img src="${LOGO_URL}" alt="Ellectra" style="width:80px;height:auto;" crossorigin="anonymous">
+                        <div style="font-size:11px;color:#999;">Invoice ${invoiceNo} — Page ${pageIdx + 1}</div>
+                    </div>`;
             }
-        }
 
-        function loadScript(src) {
-            return new Promise((resolve, reject) => {
-                const s = document.createElement('script');
-                s.src = src;
-                s.onload = resolve;
-                s.onerror = reject;
-                document.head.appendChild(s);
+            // Items table
+            html += `
+                <table style="width:100%;border-collapse:collapse;margin:10px 0;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">ITEMS</th>
+                            <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">PRICE</th>
+                            <th style="text-align:center;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">QTY</th>
+                            <th style="text-align:right;font-size:12px;font-weight:700;color:#1a1a1a;padding:10px 12px;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;text-transform:uppercase;letter-spacing:1px;">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+            page.items.forEach((item, idx) => {
+                const bg = idx % 2 === 1 ? 'background:#fafafa;' : '';
+                html += `
+                    <tr style="${bg}">
+                        <td style="padding:7px 12px;font-size:12px;color:#333;">${item.name || ''}</td>
+                        <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.price > 0 ? fmtNum(item.price) : ''}</td>
+                        <td style="padding:7px 12px;font-size:12px;color:#333;text-align:center;">${item.qty > 1 ? item.qty : ''}</td>
+                        <td style="padding:7px 12px;font-size:12px;color:#333;text-align:right;">${fmtNum(item.total)}</td>
+                    </tr>`;
             });
+
+            html += `</tbody></table>`;
+
+            // Totals only on last page
+            if (isLastPage) {
+                html += `
+                    <div style="margin-top:20px;display:flex;flex-direction:column;align-items:flex-end;">
+                        <div style="width:60%;height:2px;background:#1a1a1a;margin-bottom:12px;"></div>
+
+                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                            <span style="flex:1;text-align:right;padding-right:15px;">Sub-total :</span>
+                            <span style="min-width:130px;text-align:right;">${fmtNum(subtotal)}</span>
+                        </div>`;
+
+                if (labour > 0) {
+                    html += `
+                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                            <span style="flex:1;text-align:right;padding-right:15px;">Labour Wage :</span>
+                            <span style="min-width:130px;text-align:right;">${fmtNum(labour)}</span>
+                        </div>`;
+                }
+
+                if (transport > 0) {
+                    html += `
+                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                            <span style="flex:1;text-align:right;padding-right:15px;">Transportation :</span>
+                            <span style="min-width:130px;text-align:right;">${fmtNum(transport)}</span>
+                        </div>`;
+                }
+
+                if (taxPct > 0) {
+                    html += `
+                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                            <span style="flex:1;text-align:right;padding-right:15px;">Tax (${taxPct}%) :</span>
+                            <span style="min-width:130px;text-align:right;">${fmtNum(tax)}</span>
+                        </div>`;
+                } else {
+                    html += `
+                        <div style="display:flex;justify-content:flex-end;width:50%;margin-bottom:4px;font-size:13px;color:#333;">
+                            <span style="flex:1;text-align:right;padding-right:15px;">Tax :</span>
+                            <span style="min-width:130px;text-align:right;"></span>
+                        </div>`;
+                }
+
+                html += `
+                        <div style="width:220px;height:2px;background:#1a1a1a;margin:6px 0;"></div>
+                        <div style="display:flex;justify-content:flex-end;width:50%;font-size:18px;font-weight:800;color:#1a1a1a;">
+                            <span style="flex:1;text-align:right;padding-right:15px;">Total :</span>
+                            <span style="min-width:130px;text-align:right;">${fmtNum(total)}</span>
+                        </div>
+                    </div>
+
+                    <div style="text-align:center;font-size:20px;font-weight:700;color:#1a1a1a;margin:35px 0 25px 0;font-style:italic;">
+                        Thank you for your purchase!
+                    </div>
+
+                    <div style="margin-top:15px;">
+                        <h4 style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:4px;">Contact Us</h4>
+                        <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">6381733447</p>
+                        <p style="font-size:12px;color:#555;line-height:1.5;margin:0;">ellectra2025@gmail.com</p>
+                    </div>`;
+            }
+
+            // Swirl decoration
+            html += `
+                <div style="position:absolute;bottom:0;right:0;width:180px;height:180px;">
+                    ${getSwirlSVG()}
+                </div>
+            </div>`;
+        });
+
+        return html;
+    }
+
+    function generatePreview() {
+        document.getElementById('invoicePreview').innerHTML = generateInvoiceHTML();
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    async function downloadPDF() {
+        const items = getItems().filter(i => i.name);
+        if (items.length === 0) { showToast('⚠️ Add items first'); return; }
+        document.getElementById('loading').classList.add('show');
+        try {
+            if (typeof html2canvas === 'undefined') {
+                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+            }
+            const renderArea = document.getElementById('pdfRender');
+            renderArea.innerHTML = generateInvoiceHTML();
+            await new Promise(r => setTimeout(r, 1500));
+
+            const pages = renderArea.querySelectorAll('[style*="min-height:1123px"]');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfW = 210, pdfH = 297;
+
+            for (let i = 0; i < pages.length; i++) {
+                if (i > 0) pdf.addPage();
+                const canvas = await html2canvas(pages[i], {
+                    scale: 2, useCORS: true, allowTaint: true,
+                    logging: false, backgroundColor: '#ffffff',
+                    width: 794, windowWidth: 794
+                });
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                const imgH = (canvas.height * pdfW) / canvas.width;
+                pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, Math.min(imgH, pdfH));
+            }
+
+            const invNo = document.getElementById('invoiceNo').value.replace(/\//g, '-');
+            pdf.save(`Invoice_${invNo}.pdf`);
+            showToast('✅ PDF Downloaded!');
+            renderArea.innerHTML = '';
+        } catch (err) {
+            console.error(err);
+            showToast('❌ Error: ' + err.message);
+        } finally {
+            document.getElementById('loading').classList.remove('show');
         }
+    }
 
-        function resetForm() {
-            if (!confirm('Reset all data?')) return;
-            document.getElementById('invoiceNo').value = 'ELE/00012/25-26';
-            const d = new Date();
-            document.getElementById('invoiceDate').value = `${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}`;
-            document.getElementById('clientName').value = '';
-            document.getElementById('clientAddress').value = '';
-            document.getElementById('taxPercent').value = '0';
-            document.getElementById('itemsContainer').innerHTML = '';
-            itemCount = 0;
-            addItem();
-            calculateAll();
-            showToast('🔄 Form Reset');
-        }
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src; s.onload = resolve; s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
 
-        // Load html2canvas early
-        loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    function resetForm() {
+        if (!confirm('Reset all data?')) return;
+        document.getElementById('invoiceNo').value = 'ELE/00012/25-26';
+        const d = new Date();
+        document.getElementById('invoiceDate').value = `${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}`;
+        document.getElementById('clientName').value = '';
+        document.getElementById('clientAddress').value = '';
+        document.getElementById('taxPercent').value = '0';
+        document.getElementById('labourWage').value = '0';
+        document.getElementById('transportCost').value = '0';
+        document.getElementById('itemsContainer').innerHTML = '';
+        itemCount = 0;
+        addItem();
+        calculateAll();
+        showToast('🔄 Form Reset');
+    }
 
-        // Initialize
-        init();
-    </script>
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    init();
+</script>
 </body>
 </html>
